@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./Components/Card";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const mockScanDomain = (domain: string) => {
   return {
@@ -34,6 +35,21 @@ function App() {
     }[]
   >([]);
 
+  // Load the card order from the localStorage
+  useEffect(() => {
+    const savedCards = localStorage.getItem("cards");
+    if (savedCards) {
+      setCards(JSON.parse(savedCards));
+    }
+  }, []);
+
+  // Using localStorage to save cards arrive
+  useEffect(() => {
+    if (cards.length) {
+      localStorage.setItem("cards", JSON.stringify(cards));
+    }
+  }, [cards]);
+
   function submit(event: { preventDefault: () => void }): any {
     event.preventDefault();
 
@@ -64,6 +80,17 @@ function App() {
     }, 3000);
   }
 
+  // Handle the drag and drop logic
+  const handleOnDragEnd = (result: any) => {
+    if (!result.destination) return;
+
+    const reorderedCards = Array.from(cards);
+    const [movedCard] = reorderedCards.splice(result.source.index, 1);
+    reorderedCards.splice(result.destination.index, 0, movedCard);
+
+    setCards(reorderedCards);
+  };
+
   return (
     <div className="App">
       <form onSubmit={submit}>
@@ -75,18 +102,47 @@ function App() {
         />
         <button>Scan</button>
       </form>
-      {cards.map((card, index) => (
-        <Card
-          key={index}
-          domain={card.domain}
-          startTime={card.startTime}
-          endTime={card.endTime}
-          status={card.status}
-          subdomains={card.subdomains}
-          ips={card.ips}
-          emails={card.emails}
-        />
-      ))}
+
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        {cards.length > 0 && (
+          <Droppable droppableId="cards">
+            {(provided) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="card-list"
+              >
+                {cards.map((card, index) => (
+                  <Draggable
+                    key={index}
+                    draggableId={`card-${index}`}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <Card
+                          domain={card.domain}
+                          startTime={card.startTime}
+                          endTime={card.endTime}
+                          status={card.status}
+                          subdomains={card.subdomains}
+                          ips={card.ips}
+                          emails={card.emails}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        )}
+      </DragDropContext>
     </div>
   );
 }
