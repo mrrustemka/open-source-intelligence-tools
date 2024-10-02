@@ -52,6 +52,9 @@ function App() {
           startTime={card.startTime}
           endTime={card.endTime}
           status={card.status}
+          subdomains={["sub1.example.com", "sub2.example.com"]}
+          ips={["192.168.1.1", "192.168.1.2"]}
+          emails={["admin@example.com", "contact@example.com"]}
         />
       ))}
     </div>
