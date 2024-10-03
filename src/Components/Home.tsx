@@ -52,7 +52,7 @@ function Home() {
     }
   }, [cards]);
 
-  function submit(event: { preventDefault: () => void }): any {
+  function submit(event: { preventDefault: () => void }): void {
     event.preventDefault();
 
     if (isValidInput(domain)) {
@@ -86,7 +86,7 @@ function Home() {
   }
 
   // Handle the drag and drop logic
-  function handleOnDragEnd(result: any) {
+  function handleOnDragEnd(result: any): void {
     if (!result.destination) return;
 
     const reorderedCards = Array.from(cards);
