@@ -54,35 +54,37 @@ function App() {
   function submit(event: { preventDefault: () => void }): any {
     event.preventDefault();
 
-    const startTime = new Date().toLocaleString();
-    const newCard = {
-      domain: domain,
-      startTime: startTime,
-      endTime: "",
-      status: "In Progress...",
-      subdomains: [],
-      ips: [],
-      emails: []
-    };
+    if (isValidInput(domain)) {
+      const startTime = new Date().toLocaleString();
+      const newCard = {
+        domain: domain,
+        startTime: startTime,
+        endTime: "",
+        status: "In Progress...",
+        subdomains: [],
+        ips: [],
+        emails: []
+      };
 
-    setCards((prevCards) => [...prevCards, newCard]);
+      setCards((prevCards) => [...prevCards, newCard]);
 
-    setTimeout(() => {
-      const endTime = new Date().toLocaleString();
-      const mockData = mockScanDomain(domain);
+      setTimeout(() => {
+        const endTime = new Date().toLocaleString();
+        const mockData = mockScanDomain(domain);
 
-      setCards((prevCards) =>
-        prevCards.map((card, index) =>
-          index === prevCards.length - 1
-            ? { ...card, ...mockData, endTime: endTime, status: "Completed" }
-            : card
-        )
-      );
-    }, 3000);
+        setCards((prevCards) =>
+          prevCards.map((card, index) =>
+            index === prevCards.length - 1
+              ? { ...card, ...mockData, endTime: endTime, status: "Completed" }
+              : card
+          )
+        );
+      }, 3000);
+    }
   }
 
   // Handle the drag and drop logic
-  const handleOnDragEnd = (result: any) => {
+  function handleOnDragEnd(result: any) {
     if (!result.destination) return;
 
     const reorderedCards = Array.from(cards);
@@ -90,7 +92,7 @@ function App() {
     reorderedCards.splice(result.destination.index, 0, movedCard);
 
     setCards(reorderedCards);
-  };
+  }
 
   function handleInputChange(value: string): void {
     setDomain(value);
@@ -129,10 +131,7 @@ function App() {
             </div>
           )}
         </div>
-        <button className="tooltip" onClick={handleScanClick}>
-          Scan
-          {/* <span className="tooltiptext">Click to Scan</span> */}
-        </button>
+        <button onClick={handleScanClick}>Scan</button>
       </form>
 
       <DragDropContext onDragEnd={handleOnDragEnd}>

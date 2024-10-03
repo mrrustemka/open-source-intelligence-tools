@@ -1,4 +1,6 @@
-﻿function Modal({
+﻿import { useEffect, useState } from "react";
+
+function Modal({
   isOpen,
   onClose,
   data
@@ -7,10 +9,24 @@
   onClose: () => void;
   data: { subdomains: string[]; ips: string[]; emails: string[] };
 }) {
-  if (!isOpen) return null;
+  const [visible, setVisible] = useState(isOpen);
+
+  useEffect(() => {
+    if (isOpen) {
+      setVisible(true);
+    } else {
+      // Delay the state update to allow the animation to play
+      setTimeout(() => setVisible(false), 300); // match the duration of the animation
+    }
+  }, [isOpen]);
+
+  if (!visible) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div
+      className={`modal-overlay ${isOpen ? "fade-in" : "fade-out"}`}
+      onClick={onClose}
+    >
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>Additional Information</h2>
         <h3>Subdomains</h3>
