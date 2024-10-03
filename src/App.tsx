@@ -34,6 +34,7 @@ function App() {
       emails: string[];
     }[]
   >([]);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Load the card order from the localStorage
   useEffect(() => {
@@ -91,18 +92,46 @@ function App() {
     setCards(reorderedCards);
   };
 
+  function handleInputChange(value: string): void {
+    setDomain(value);
+    setErrorMessage("");
+  }
+
+  function handleScanClick() {
+    if (domain.trim() === "") {
+      setErrorMessage("Input cannot be empty");
+    } else if (!isValidInput(domain)) {
+      setErrorMessage("Invalid input format");
+    } else {
+      console.log("Scanning with input:", domain);
+      setErrorMessage("");
+    }
+  }
+
+  function isValidInput(value: string): boolean {
+    const domainRegex = /^(?!:\/\/)([a-zA-Z0-9-_]{1,63}\.)+[a-zA-Z]{2,6}$/;
+    return domainRegex.test(value);
+  }
+
   return (
     <div className="App">
       <form onSubmit={submit}>
-        <input
-          type="text"
-          value={domain}
-          onChange={(e) => setDomain(e.target.value)}
-          placeholder="Enter Domain"
-        />
-        <button className="tooltip">
+        <div>
+          <input
+            type="text"
+            value={domain}
+            onChange={(e) => handleInputChange(e.target.value)}
+            placeholder="Enter Domain"
+          />
+          {errorMessage && (
+            <div style={{ color: "red", marginTop: "10px" }}>
+              {errorMessage}
+            </div>
+          )}
+        </div>
+        <button className="tooltip" onClick={handleScanClick}>
           Scan
-          <span className="tooltiptext">Click to Scan</span>
+          {/* <span className="tooltiptext">Click to Scan</span> */}
         </button>
       </form>
 

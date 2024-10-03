@@ -34,7 +34,7 @@ function Card({
       <p>Start Time: {startTime}</p>
       <p>End Time: {endTime ? endTime : "In Progress"}</p>
       <p>Status: {status}</p>
-      <span className="card tooltiptext">Click to Get More Information</span>
+      {/* <span className="card tooltiptext">Click to Get More Information</span> */}
 
       <Modal
         isOpen={isModalOpen}

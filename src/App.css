@@ -65,13 +65,7 @@ button:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.tooltip {
+/* .tooltip {
   position: relative;
   display: inline-block;
   cursor: pointer;
@@ -112,4 +106,9 @@ button:hover {
 
 .card .tooltiptext {
   top: 105%;
+} */
+
+.error-message {
+  color: red;
+  margin-top: 10px;
 }
