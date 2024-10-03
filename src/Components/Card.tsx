@@ -1,15 +1,8 @@
 ﻿import React, { useState } from "react";
 import Modal from "./Modal";
+import { Tooltip } from "react-tooltip";
 
-function Card({
-  domain,
-  startTime,
-  endTime,
-  status,
-  subdomains,
-  ips,
-  emails
-}: {
+interface CardProps {
   domain: string;
   startTime: string;
   endTime: string;
@@ -17,7 +10,19 @@ function Card({
   subdomains: string[];
   ips: string[];
   emails: string[];
-}) {
+  id: number;
+}
+
+const Card: React.FC<CardProps> = ({
+  domain,
+  startTime,
+  endTime,
+  status,
+  subdomains,
+  ips,
+  emails,
+  id
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   function openModal() {
@@ -30,17 +35,31 @@ function Card({
 
   return (
     <div onClick={openModal} className="card">
-      <h3>Domain: {domain}</h3>
-      <p>Start Time: {startTime}</p>
-      <p>End Time: {endTime ? endTime : "In Progress"}</p>
-      <p>Status: {status}</p>
+      <h3 id={`domain-${id}`}>Domain: {domain}</h3>
+      <p id={`start-time-${id}`}>Start Time: {startTime}</p>
+      <p id={`end-time-${id}`}>End Time: {endTime ? endTime : "In Progress"}</p>
+      <p id={`status-${id}`}>Status: {status}</p>
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
         data={{ subdomains, ips, emails }}
       />
+
+      <Tooltip anchorId={`domain-${id}`} content="The Domain Address" />
+      <Tooltip
+        anchorId={`start-time-${id}`}
+        content={`Scan of ${domain} Started Time`}
+      />
+      <Tooltip
+        anchorId={`end-time-${id}`}
+        content={`Scan of ${domain} End Time (is Still in Progress)`}
+      />
+      <Tooltip
+        anchorId={`status-${id}`}
+        content={`Current Scan Status of ${domain}`}
+      />
     </div>
   );
-}
+};
 
 export default Card;

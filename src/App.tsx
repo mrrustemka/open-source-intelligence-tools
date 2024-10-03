@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./Components/Card";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Tooltip } from "react-tooltip";
 
 const mockScanDomain = (domain: string) => {
   return {
@@ -120,10 +121,11 @@ function App() {
       <form onSubmit={submit}>
         <div>
           <input
+            id="input-tooltip"
             type="text"
             value={domain}
             onChange={(e) => handleInputChange(e.target.value)}
-            placeholder="Enter Domain"
+            placeholder="Start to Enter..."
           />
           {errorMessage && (
             <div style={{ color: "red", marginTop: "10px" }}>
@@ -131,7 +133,9 @@ function App() {
             </div>
           )}
         </div>
-        <button onClick={handleScanClick}>Scan</button>
+        <button id="button-tooltip" onClick={handleScanClick}>
+          Scan
+        </button>
       </form>
 
       <DragDropContext onDragEnd={handleOnDragEnd}>
@@ -163,6 +167,7 @@ function App() {
                           subdomains={card.subdomains}
                           ips={card.ips}
                           emails={card.emails}
+                          id={index}
                         />
                       </div>
                     )}
@@ -174,6 +179,8 @@ function App() {
           </Droppable>
         )}
       </DragDropContext>
+      <Tooltip anchorId="input-tooltip" content="Enter a Domain" />
+      <Tooltip anchorId="button-tooltip" content="Click to Scan" />
     </div>
   );
 }

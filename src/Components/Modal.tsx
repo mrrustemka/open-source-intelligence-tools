@@ -1,4 +1,5 @@
 ﻿import { useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
 
 function Modal({
   isOpen,
@@ -15,8 +16,7 @@ function Modal({
     if (isOpen) {
       setVisible(true);
     } else {
-      // Delay the state update to allow the animation to play
-      setTimeout(() => setVisible(false), 300); // match the duration of the animation
+      setTimeout(() => setVisible(false), 300);
     }
   }, [isOpen]);
 
@@ -28,6 +28,9 @@ function Modal({
       onClick={onClose}
     >
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <span id="close-modal" className="close-modal" onClick={onClose}>
+          &times;
+        </span>
         <h2>Additional Information</h2>
         <h3>Subdomains</h3>
         <ul>
@@ -47,8 +50,8 @@ function Modal({
             <li key={index}>{email}</li>
           ))}
         </ul>
-        <button onClick={onClose}>Close</button>
       </div>
+      <Tooltip anchorId="close-modal" content="Click to Close" />
     </div>
   );
 }
