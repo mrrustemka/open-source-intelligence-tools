@@ -32,7 +32,7 @@ function ScanDetails() {
           <li key={index}>{email}</li>
         ))}
       </ul>
-      <Link to="/home">Back Home</Link>
+      <Link to="/open-source-intelligence-tools">Back to Scan</Link>
     </div>
   );
 }

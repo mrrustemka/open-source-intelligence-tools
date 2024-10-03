@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
-    path: "home",
+    path: "open-source-intelligence-tools",
     element: (
       <div>
         <Home />
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     )
   },
   {
-    path: "home/scan/:domain",
+    path: "open-source-intelligence-tools/scan/:domain",
     element: (
       <div>
         <ScanDetails />

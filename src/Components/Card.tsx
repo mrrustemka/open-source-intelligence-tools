@@ -37,7 +37,7 @@ function Card({
       <h3 id={`domain-${id}`}>
         Domain:{" "}
         <Link
-          to={`/home/scan/${domain}`}
+          to={`/open-source-intelligence-tools/scan/${domain}`}
           state={{
             domain,
             startTime,

@@ -122,11 +122,13 @@ function Home() {
       <form onSubmit={submit}>
         <div>
           <input
-            id="input-tooltip"
+            id="input"
             type="text"
             value={domain}
             onChange={(e) => handleInputChange(e.target.value)}
             placeholder="Start to Enter..."
+            onFocus={(e) => (e.target.style.borderColor = "#007BFF")}
+            onBlur={(e) => (e.target.style.borderColor = "#ccc")}
           />
           {errorMessage && (
             <div style={{ color: "red", marginTop: "10px" }}>
@@ -180,7 +182,7 @@ function Home() {
           </Droppable>
         )}
       </DragDropContext>
-      <Tooltip anchorId="input-tooltip" content="Enter a Domain" />
+      <Tooltip anchorId="input" content="Enter a Domain" />
       <Tooltip anchorId="button-tooltip" content="Click to Scan" />
     </div>
   );
