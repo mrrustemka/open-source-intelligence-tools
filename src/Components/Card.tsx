@@ -29,11 +29,12 @@ function Card({
   }
 
   return (
-    <div className="card" onClick={openModal}>
+    <div className="card tooltip" onClick={openModal}>
       <h3>Domain: {domain}</h3>
       <p>Start Time: {startTime}</p>
       <p>End Time: {endTime ? endTime : "In Progress"}</p>
       <p>Status: {status}</p>
+      <span className="card tooltiptext">Click to Get More Information</span>
 
       <Modal
         isOpen={isModalOpen}

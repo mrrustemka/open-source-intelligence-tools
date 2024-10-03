@@ -100,7 +100,10 @@ function App() {
           onChange={(e) => setDomain(e.target.value)}
           placeholder="Enter Domain"
         />
-        <button>Scan</button>
+        <button className="tooltip">
+          Scan
+          <span className="tooltiptext">Click to Scan</span>
+        </button>
       </form>
 
       <DragDropContext onDragEnd={handleOnDragEnd}>

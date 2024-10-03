@@ -31,7 +31,10 @@
             <li key={index}>{email}</li>
           ))}
         </ul>
-        <button onClick={onClose}>Close</button>
+        <button className="tooltip" onClick={onClose}>
+          Close
+          <span className="tooltiptext">Click to Close Modal Window</span>
+        </button>
       </div>
     </div>
   );
