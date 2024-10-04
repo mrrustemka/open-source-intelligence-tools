@@ -28,7 +28,11 @@ function Modal({
       onClick={onClose}
     >
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <span id="close-modal" className="close-modal" onClick={onClose}>
+        <span
+          data-tooltip-id="close-modal"
+          className="close-modal"
+          onClick={onClose}
+        >
           &times;
         </span>
         <h2>Additional Information</h2>
@@ -51,7 +55,7 @@ function Modal({
           ))}
         </ul>
       </div>
-      <Tooltip anchorId="close-modal" content="Click to Close" />
+      <Tooltip id="close-modal" content="Click to Close" />
     </div>
   );
 }

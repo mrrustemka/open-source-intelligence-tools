@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import Modal from "./Modal";
 import { Tooltip } from "react-tooltip";
 import { Link } from "react-router-dom";
@@ -34,7 +34,7 @@ function Card({
 
   return (
     <div className="card">
-      <h3 id={`domain-${id}`}>
+      <h3 id={`domain-${id}`} data-tooltip-id={`domain-tooltip-${id}`}>
         Domain:{" "}
         <Link
           to={`/open-source-intelligence-tools/scan/${domain}`}
@@ -51,9 +51,15 @@ function Card({
           {domain}
         </Link>
       </h3>
-      <p id={`start-time-${id}`}>Start Time: {startTime}</p>
-      <p id={`end-time-${id}`}>End Time: {endTime ? endTime : "In Progress"}</p>
-      <p id={`status-${id}`}>Status: {status}</p>
+      <p id={`start-time-${id}`} data-tooltip-id={`start-time-tooltip-${id}`}>
+        Start Time: {startTime}
+      </p>
+      <p id={`end-time-${id}`} data-tooltip-id={`end-time-tooltip-${id}`}>
+        End Time: {endTime ? endTime : "In Progress"}
+      </p>
+      <p id={`status-${id}`} data-tooltip-id={`status-tooltip-${id}`}>
+        Status: {status}
+      </p>
       <button onClick={openModal}>Details</button>
       <Modal
         isOpen={isModalOpen}
@@ -61,17 +67,17 @@ function Card({
         data={{ subdomains, ips, emails }}
       />
 
-      <Tooltip anchorId={`domain-${id}`} content="The Domain Address" />
+      <Tooltip id={`domain-tooltip-${id}`} content="The Domain Address" />
       <Tooltip
-        anchorId={`start-time-${id}`}
-        content={`Scan of ${domain} Started Time`}
+        id={`start-time-tooltip-${id}`}
+        content={`Scan of ${domain} Start Time`}
       />
       <Tooltip
-        anchorId={`end-time-${id}`}
+        id={`end-time-tooltip-${id}`}
         content={`Scan of ${domain} End Time (is Still in Progress)`}
       />
       <Tooltip
-        anchorId={`status-${id}`}
+        id={`status-tooltip-${id}`}
         content={`Current Scan Status of ${domain}`}
       />
     </div>

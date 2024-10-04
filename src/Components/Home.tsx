@@ -129,6 +129,7 @@ function Home() {
             placeholder="Start to Enter..."
             onFocus={(e) => (e.target.style.borderColor = "#007BFF")}
             onBlur={(e) => (e.target.style.borderColor = "#ccc")}
+            data-tooltip-id="tooltip-input"
           />
           {errorMessage && (
             <div style={{ color: "red", marginTop: "10px" }}>
@@ -136,7 +137,11 @@ function Home() {
             </div>
           )}
         </div>
-        <button id="button-tooltip" onClick={handleScanClick}>
+        <button
+          id="button"
+          onClick={handleScanClick}
+          data-tooltip-id="tooltip-button"
+        >
           Scan
         </button>
       </form>
@@ -182,8 +187,8 @@ function Home() {
           </Droppable>
         )}
       </DragDropContext>
-      <Tooltip anchorId="input" content="Enter a Domain" />
-      <Tooltip anchorId="button-tooltip" content="Click to Scan" />
+      <Tooltip id="tooltip-input" content="Enter a Domain" />
+      <Tooltip id="tooltip-button" content="Click to Scan" />
     </div>
   );
 }
