@@ -36,6 +36,7 @@ function Home() {
     }[]
   >([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [notification, setNotification] = useState<string>("");
 
   // Load the card order from the localStorage
   useEffect(() => {
@@ -71,21 +72,37 @@ function Home() {
 
       setTimeout(() => {
         const endTime = new Date().toLocaleString();
-        const mockData = mockScanDomain(domain);
-
-        setCards((prevCards) =>
-          prevCards.map((card, index) =>
-            index === prevCards.length - 1
-              ? { ...card, ...mockData, endTime: endTime, status: "Completed" }
-              : card
-          )
-        );
+        const isSuccess = Math.random() > 0.2;
+        if (isSuccess) {
+          const mockData = mockScanDomain(domain);
+          setCards((prevCards) =>
+            prevCards.map((card, index) =>
+              index === prevCards.length - 1
+                ? {
+                    ...card,
+                    ...mockData,
+                    endTime: endTime,
+                    status: "Completed"
+                  }
+                : card
+            )
+          );
+        } else {
+          setCards((prevCards) =>
+            prevCards.map((card, index) =>
+              index === prevCards.length - 1
+                ? { ...card, endTime: endTime, status: "Failed" }
+                : card
+            )
+          );
+          setNotification(`Scan for ${domain} failed.`);
+          setTimeout(() => setNotification(""), 5000);
+        }
       }, 3000);
       setDomain("");
     }
   }
 
-  // Handle the drag and drop logic
   function handleOnDragEnd(result: any): void {
     if (!result.destination) return;
 
@@ -119,6 +136,18 @@ function Home() {
 
   return (
     <div>
+      {notification && (
+        <div
+          style={{
+            backgroundColor: "#ffcccc",
+            color: "#ff0000",
+            padding: "10px",
+            marginBottom: "10px"
+          }}
+        >
+          {notification}
+        </div>
+      )}
       <form onSubmit={submit}>
         <div>
           <input
