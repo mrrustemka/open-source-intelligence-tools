@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/open-source-intelligence-tools/static/css/main.c7ec699a.css",
-    "main.js": "/open-source-intelligence-tools/static/js/main.5bbf9b9a.js",
+    "main.js": "/open-source-intelligence-tools/static/js/main.e7f39ebd.js",
     "static/js/453.ee4a405e.chunk.js": "/open-source-intelligence-tools/static/js/453.ee4a405e.chunk.js",
     "index.html": "/open-source-intelligence-tools/index.html",
     "main.c7ec699a.css.map": "/open-source-intelligence-tools/static/css/main.c7ec699a.css.map",
-    "main.5bbf9b9a.js.map": "/open-source-intelligence-tools/static/js/main.5bbf9b9a.js.map",
+    "main.e7f39ebd.js.map": "/open-source-intelligence-tools/static/js/main.e7f39ebd.js.map",
     "453.ee4a405e.chunk.js.map": "/open-source-intelligence-tools/static/js/453.ee4a405e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c7ec699a.css",
-    "static/js/main.5bbf9b9a.js"
+    "static/js/main.e7f39ebd.js"
   ]
 }
