@@ -48,3 +48,4 @@ My project improvements:
 4. Optimize Drag-and-Drop
 5. Error handling
 6. Refactor to use useState
+7. Accessibility and disability
