@@ -1,18 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Modal from "./Modal";
 import { Tooltip } from "react-tooltip";
-import { Link } from "react-router-dom";
 
-function Card({
-  domain,
-  startTime,
-  endTime,
-  status,
-  subdomains,
-  ips,
-  emails,
-  id
-}: {
+interface CardProps {
   domain: string;
   startTime: string;
   endTime: string;
@@ -21,7 +11,18 @@ function Card({
   ips: string[];
   emails: string[];
   id: number;
-}) {
+}
+
+const Card: React.FC<CardProps> = ({
+  domain,
+  startTime,
+  endTime,
+  status,
+  subdomains,
+  ips,
+  emails,
+  id
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   function openModal() {
@@ -33,23 +34,9 @@ function Card({
   }
 
   return (
-    <div className="card">
+    <div onClick={openModal} className="card">
       <h3 id={`domain-${id}`} data-tooltip-id={`domain-tooltip-${id}`}>
-        Domain:{" "}
-        <Link
-          to={`/open-source-intelligence-tools/scan/${domain}`}
-          state={{
-            domain,
-            startTime,
-            endTime,
-            status,
-            subdomains,
-            ips,
-            emails
-          }}
-        >
-          {domain}
-        </Link>
+        Domain: {domain}
       </h3>
       <p id={`start-time-${id}`} data-tooltip-id={`start-time-tooltip-${id}`}>
         Start Time: {startTime}
@@ -60,7 +47,6 @@ function Card({
       <p id={`status-${id}`} data-tooltip-id={`status-tooltip-${id}`}>
         Status: {status}
       </p>
-      <button onClick={openModal}>Details</button>
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
@@ -82,6 +68,6 @@ function Card({
       />
     </div>
   );
-}
+};
 
 export default Card;
