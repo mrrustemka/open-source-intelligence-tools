@@ -1,7 +1,7 @@
 I created SPA and data simulation in front-end part. I used:
 
 1. React & TypeScript
-2. SPA with Routes
+2. Single Page Application
 3. Drag & Drop functionality
 4. Local Storage to save cards
 5. Random Data Simulation
